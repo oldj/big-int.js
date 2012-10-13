@@ -227,7 +227,7 @@ BIO = {
     while (result[0] === 0) {
       result.shift();
     }
-    return result;
+    return [result, left];
   },
   divide: function(a, b) {
     var na, nb;
@@ -239,7 +239,20 @@ BIO = {
       case 0:
         return "1";
       default:
-        return this.__divide(na, nb).join("");
+        return this.__divide(na, nb)[0].join("");
+    }
+  },
+  mod: function(a, b) {
+    var na, nb;
+    na = this.__trans(a);
+    nb = this.__trans(b);
+    switch (this.__cmp(na, nb)) {
+      case -1:
+        return a;
+      case 0:
+        return "0";
+      default:
+        return this.__divide(na, nb)[1].join("") || "0";
     }
   }
 };

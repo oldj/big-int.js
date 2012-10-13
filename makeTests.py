@@ -7,7 +7,7 @@
 
 import random
 
-OPERATIONS = ("add", "minus", "multiply", "divide")
+OPERATIONS = ("add", "minus", "multiply", "divide", "mod")
 
 def rndBigInt():
 
@@ -28,8 +28,10 @@ def makeATest():
         c = a - b
     elif operation == "multiply":
         c = a * b
-    else:
+    elif operation == "divide":
         c = a / b
+    else:
+        c = a % b
 
     return """["%s",\n\t\t"%d",\n\t\t"%d",\n\t\t"%d"\n\t]""" % (operation, a, b , c)
 

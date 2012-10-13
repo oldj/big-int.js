@@ -35,18 +35,23 @@ BIO =
 
 
   gt: (a, b) ->
+    # 大于
     @__cmp(@__trans(a), @__trans(b)) == 1
 
   gte: (a, b) ->
+    # 大于等于
     @__cmp(@__trans(a), @__trans(b)) >= 1
 
   lt: (a, b) ->
+    # 小于
     @__cmp(@__trans(a), @__trans(b)) == -1
 
   lte: (a, b) ->
+    # 小于等于
     @__cmp(@__trans(a), @__trans(b)) <= 0
 
   eq: (a, b) ->
+    # 等于
     a == b
 
   __carry: (na) ->
@@ -78,6 +83,7 @@ BIO =
 
 
   add: (a, b) ->
+    # 加法
     na = @__trans(a)
     nb = @__trans(b)
     @__add(na, nb).join("")
@@ -109,7 +115,7 @@ BIO =
 
 
   minus: (a, b) ->
-
+    # 减法
     na = @__trans(a)
     nb = @__trans(b)
 
@@ -147,6 +153,7 @@ BIO =
 
 
   __lmv: (a, n) ->
+    # 左移 n 位（在右则补 n 个 0）
     if n > 0 then a.concat(0 for i in [1..n]) else a
 
 
@@ -165,6 +172,7 @@ BIO =
 
 
   multiply: (a, b) ->
+    # 乘法
     na = @__trans(a)
     nb = @__trans(b)
 
@@ -202,11 +210,11 @@ BIO =
     while result[0] == 0
       result.shift()
 
-    result
+    [result, left]
 
 
   divide: (a, b) ->
-
+    # 除法
     na = @__trans(a)
     nb = @__trans(b)
 
@@ -215,5 +223,18 @@ BIO =
       when 0 then "1"
       else
         # a > b，开始除法
-        @__divide(na, nb).join("")
+        @__divide(na, nb)[0].join("")
+
+
+  mod: (a, b) ->
+    # 求余
+    na = @__trans(a)
+    nb = @__trans(b)
+
+    switch @__cmp(na, nb)
+      when -1 then a
+      when 0 then "0"
+      else
+      # a > b，开始除法
+        @__divide(na, nb)[1].join("") or "0"
 
