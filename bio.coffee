@@ -52,7 +52,7 @@ BIO =
 
   eq: (a, b) ->
     # 等于
-    a == b
+    a.replace(/^0+/g, "") == b.replace(/^0+/g, "")
 
   __carry: (na) ->
     # 进位
