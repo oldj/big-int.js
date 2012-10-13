@@ -51,11 +51,11 @@ BIO = {
     return this.__cmp(this.__trans(a), this.__trans(b)) <= 0;
   },
   eq: function(a, b) {
-    return a === b;
+    return a.replace(/^0+/g, "") === b.replace(/^0+/g, "");
   },
   __carry: function(na) {
     var i, s, _i, _ref;
-    for (i = _i = 0, _ref = na.length; 0 <= _ref ? _i <= _ref : _i >= _ref; i = 0 <= _ref ? ++_i : --_i) {
+    for (i = _i = 0, _ref = na.length - 1; 0 <= _ref ? _i <= _ref : _i >= _ref; i = 0 <= _ref ? ++_i : --_i) {
       s = na[i];
       if (s > 9) {
         na[i] = s % 10;
@@ -93,7 +93,7 @@ BIO = {
     return this.__add(na, nb).join("");
   },
   __minus: function(na, nb) {
-    var i, len, result, s, _i, _j, _ref;
+    var i, len, result, s, _i, _j, _ref, _ref1;
     na = na.slice(0).reverse();
     nb = nb.slice(0).reverse();
     len = Math.max(na.length, nb.length);
@@ -108,7 +108,7 @@ BIO = {
     for (i = _i = 0, _ref = len - 1; 0 <= _ref ? _i <= _ref : _i >= _ref; i = 0 <= _ref ? ++_i : --_i) {
       result[i] = (na[i] || 0) - (nb[i] || 0);
     }
-    for (i = _j = 0; 0 <= len ? _j <= len : _j >= len; i = 0 <= len ? ++_j : --_j) {
+    for (i = _j = 0, _ref1 = len - 2; 0 <= _ref1 ? _j <= _ref1 : _j >= _ref1; i = 0 <= _ref1 ? ++_j : --_j) {
       s = result[i];
       if (s < 0) {
         result[i] += 10;

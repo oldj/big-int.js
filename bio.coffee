@@ -56,10 +56,12 @@ BIO =
 
   __carry: (na) ->
     # 进位
-    for i in [0..na.length]
+    for i in [0..(na.length-1)]
       s = na[i]
       if s > 9
         na[i] = s % 10
+#        if not na[i+1]?
+#          na[i+1] = 0
         na[i+1] += Math.floor(s/10)
 
     na
@@ -100,7 +102,7 @@ BIO =
       result[i] = (na[i] or 0) - (nb[i] or 0)
 
     # 借位
-    for i in [0..len]
+    for i in [0..(len-2)]
       s = result[i]
       if s < 0
         result[i] += 10
