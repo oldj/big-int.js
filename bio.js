@@ -75,8 +75,8 @@ BIO = {
       }
       return _results;
     })();
-    na = na.concat().reverse();
-    nb = nb.concat().reverse();
+    na = na.slice(0).reverse();
+    nb = nb.slice(0).reverse();
     for (i = _i = 0, _ref = len - 1; 0 <= _ref ? _i <= _ref : _i >= _ref; i = 0 <= _ref ? ++_i : --_i) {
       result[i] = (na[i] || 0) + (nb[i] || 0);
     }
@@ -94,8 +94,8 @@ BIO = {
   },
   __minus: function(na, nb) {
     var i, len, result, s, _i, _j, _ref;
-    na = na.concat().reverse();
-    nb = nb.concat().reverse();
+    na = na.slice(0).reverse();
+    nb = nb.slice(0).reverse();
     len = Math.max(na.length, nb.length);
     result = (function() {
       var _i, _results;
@@ -144,7 +144,7 @@ BIO = {
     } else if (si === 1) {
       return a;
     } else {
-      na = a.concat().reverse();
+      na = a.slice(0).reverse();
       len = na.length;
       na.push(0);
       result = na;

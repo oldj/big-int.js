@@ -68,8 +68,8 @@ BIO =
     len = Math.max(na.length, nb.length)
     result = (0 for i in [0..len])
 
-    na = na.concat().reverse()
-    nb = nb.concat().reverse()
+    na = na.slice(0).reverse()
+    nb = nb.slice(0).reverse()
     # 相加
     for i in [0..(len-1)]
       result[i] = (na[i] or 0) + (nb[i] or 0)
@@ -90,8 +90,8 @@ BIO =
 
 
   __minus: (na, nb) ->
-    na = na.concat().reverse()
-    nb = nb.concat().reverse()
+    na = na.slice(0).reverse()
+    nb = nb.slice(0).reverse()
     len = Math.max(na.length, nb.length)
     result = (0 for i in [0..len])
 
@@ -138,7 +138,7 @@ BIO =
       a
 
     else
-      na = a.concat().reverse()
+      na = a.slice(0).reverse()
       len = na.length
       na.push(0)
       result = na
