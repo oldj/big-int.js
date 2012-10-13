@@ -1,4 +1,4 @@
-#JavaScript-Big-Integer-Operation
+#JavaScript-Big-Integer-Operations
 ================================
 
  * Author: oldj
