@@ -2,6 +2,7 @@
 var BIO;
 
 BIO = {
+  version: "0.1.0.1",
   __trans: function(bn) {
     var err, i;
     if (!bn || !bn.match(/^\d+$/)) {

@@ -8,6 +8,8 @@
 
 BIO =
 
+  version: "0.1.0.1"
+
   __trans: (bn) ->
     if not bn or not bn.match(/^\d+$/)
       err = new Error()
