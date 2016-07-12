@@ -42,7 +42,7 @@ BIO =
 
   gte: (a, b) ->
     # 大于等于
-    @__cmp(@__trans(a), @__trans(b)) >= 1
+    @__cmp(@__trans(a), @__trans(b)) >= 0
 
   lt: (a, b) ->
     # 小于
