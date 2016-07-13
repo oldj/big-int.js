@@ -7,8 +7,8 @@
 'use strict';
 
 const gulp = require('gulp');
-const uglify = require('gulp-uglify');
-const browserify = require('gulp-browserify');
+// const uglify = require('gulp-uglify');
+// const browserify = require('gulp-browserify');
 const mocha = require('gulp-mocha');
 
 gulp.task('test', () => {

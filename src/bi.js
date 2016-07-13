@@ -66,24 +66,28 @@ function __cmp(na, nb) {
     return 0;
 }
 
+function cmp(a, b) {
+    return a == b ? 0 : __cmp(__trans(a), __trans(b));
+}
+
 function gt(a, b) {
     // great than
-    return __cmp(__trans(a), __trans(b)) == 1
+    return cmp(a, b) == 1;
 }
 
 function gte(a, b) {
     // great than or equal
-    return __cmp(__trans(a), __trans(b)) >= 0
+    return cmp(a, b) >= 0;
 }
 
 function lt(a, b) {
     // less than
-    return __cmp(__trans(a), __trans(b)) == -1
+    return cmp(a, b) == -1;
 }
 
 function lte(a, b) {
     // less than or equal
-    return __cmp(__trans(a), __trans(b)) <= 0
+    return cmp(a, b) <= 0;
 }
 
 function eq(a, b) {
@@ -322,23 +326,40 @@ function divide(a, b) {
     var na = __trans(a);
     var nb = __trans(b);
 
-    var c = __cmp(na, nb);
-    if (c == -1) {
-        return 0;
-    } else if (c == 0) {
-        return 1;
-    } else {
-        // a > b，开始除法计算
-        return __divide(na, nb)[0].join('')
+    switch (__cmp(na, nb)) {
+        case -1:
+            return '0';
+        case 0:
+            return '1';
+        default:
+            // a > b，开始除法计算
+            return __divide(na, nb)[0].join('')
     }
 }
 
-function mod() {
+function mod(a, b) {
+    // 求余
 
+    if (b == 1 || b == '1') {
+        return '0';
+    }
+
+    var na = __trans(a);
+    var nb = __trans(b);
+
+    switch (__cmp(na, nb)) {
+        case -1:
+            return a;
+        case 0:
+            return '0';
+        default:
+            return __divide(na, nb)[1].join('') || '0';
+    }
 }
 
 module.exports = {
     version: version,
+    cmp: cmp,
     gt: gt,
     gte: gte,
     lt: lt,
