@@ -1,6 +1,6 @@
 /**
  * bi.test.js
- * @author jizha.wyj (oldj)
+ * @author oldj
  * @blog http://oldj.net
  */
 
@@ -9,7 +9,7 @@
 const bi = require('./bi');
 const assert = require('chai').assert;
 
-describe('bi test', () => {
+describe('basic test', () => {
 
     it('cmp', () => {
         assert.equal(bi.cmp('10', '5'), 1);
@@ -32,7 +32,7 @@ describe('bi test', () => {
         assert.equal(bi.add(95, 97), '192');
 
         let i, a, b;
-        for (i = 0; i < 100; i ++) {
+        for (i = 0; i < 100; i++) {
             a = Math.floor(Math.random() * 10000000000);
             b = Math.floor(Math.random() * 10000000000);
             assert.equal(bi.add(a, b), a + b);
@@ -53,7 +53,7 @@ describe('bi test', () => {
         assert.equal(bi.minus(380108, 217946), '162162');
 
         let i, a, b;
-        for (i = 0; i < 100; i ++) {
+        for (i = 0; i < 100; i++) {
             a = Math.floor(Math.random() * 10000000000);
             b = Math.floor(Math.random() * 10000000000);
             assert.equal(bi.minus(a, b), (a - b).toString());
@@ -73,7 +73,7 @@ describe('bi test', () => {
         assert.equal(bi.multiply(282683, 99), '27985617');
 
         let i, a, b;
-        for (i = 0; i < 100; i ++) {
+        for (i = 0; i < 100; i++) {
             a = Math.floor(Math.random() * 100000);
             b = Math.floor(Math.random() * 100000);
             assert.equal(bi.multiply(a, b), (a * b).toString());
@@ -94,7 +94,7 @@ describe('bi test', () => {
         assert.equal(bi.divide(100, 99), '1');
 
         let i, a, b;
-        for (i = 0; i < 100; i ++) {
+        for (i = 0; i < 100; i++) {
             a = Math.floor(Math.random() * 10000000000);
             b = Math.floor(Math.random() * 10000000000);
             assert.equal(bi.divide(a, b), Math.floor(a / b).toString());
@@ -116,7 +116,7 @@ describe('bi test', () => {
         assert.equal(bi.mod(10, 1), '0');
 
         let i, a, b;
-        for (i = 0; i < 100; i ++) {
+        for (i = 0; i < 100; i++) {
             a = Math.floor(Math.random() * 10000000000);
             b = Math.floor(Math.random() * 10000000000);
             assert.equal(bi.mod(a, b), (a - b * Math.floor(a / b)).toString());
@@ -127,5 +127,15 @@ describe('bi test', () => {
         assert.equal(bi.mod('60185581202776446983835868184298291190978933353720194970879021945169891191136777628055538064450125824', '17'), '11');
         assert.equal(bi.mod('19121965999257561992137003337350809430281845066195094462019761365581824', '312502567488005262042437383515164118411964681227003094687323626579496279673405440'), '19121965999257561992137003337350809430281845066195094462019761365581824');
         assert.equal(bi.mod('49523224280555588964840632475327869871740689378976887382462246934282240', '2'), '0');
+    });
+});
+
+describe('more test', () => {
+    it('python generated tests for \'+-*/%\'', () => {
+        let tests = require('../test/tests').tests;
+        
+        for (let t of tests) {
+            assert.equal(bi[t[0]](t[1], t[2]), t[3]);
+        }
     });
 });
