@@ -146,6 +146,17 @@ function __add(na, nb) {
 }
 
 function add(a, b) {
+    var sa = sign(a);
+    var sb = sign(b);
+
+    if (sa == -1 && sb == -1) {
+        return '-' + add(abs(a) + abs(b));
+    } else if (sa == -1) {
+        return minus(b, a);
+    } else if (sb == -1) {
+        return minus(a, b);
+    }
+
     var na = __trans(a);
     var nb = __trans(b);
     return __add(na, nb).join('');
@@ -186,6 +197,18 @@ function __minus(na, nb) {
 
 function minus(a, b) {
     // 减法
+
+    var sa = sign(a);
+    var sb = sign(b);
+
+    if (sa == -1 && sb == -1) {
+        return altSign(abs(a) - abs(b));
+    } else if (sa == -1) {
+        return '-' + add(abs(a) + b);
+    } else if (sb == -1) {
+        return '-' + add(a + abs(b));
+    }
+
     var na = __trans(a);
     var nb = __trans(b);
     var result;
@@ -357,6 +380,33 @@ function mod(a, b) {
     }
 }
 
+function abs(a) {
+    // 求绝对值
+    return a.toString().replace(/^-/, '');
+}
+
+function sign(a) {
+    // 取得符号
+    if (!a || a == '0') {
+        return 0;
+    } else if (a.toString().indexOf('-') == 0) {
+        return -1;
+    } else {
+        return 1;
+    }
+}
+
+function altSign(a) {
+    var sa = sign(a);
+    if (sa === 1) {
+        return '-' + a;
+    } else if (sa === -1) {
+        return abs(a);
+    } else {
+        return a;
+    }
+}
+
 module.exports = {
     version: version,
     cmp: cmp,
@@ -369,6 +419,8 @@ module.exports = {
     minus: minus,
     multiply: multiply,
     divide: divide,
-    mod: mod
+    mod: mod,
+    abs: abs,
+    sign: sign
 };
 
