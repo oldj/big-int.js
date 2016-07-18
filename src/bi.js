@@ -295,13 +295,19 @@ function __multiply(na, nb) {
 
 function multiply(a, b) {
     // 乘法
-    var na = __trans(a);
-    var nb = __trans(b);
+    var sa = sign(a);
+    var sb = sign(b);
+    var s = sa * sb;
+    if (s === 0) return '0';
+    var ss = s === 1 ? '' : '-';
+
+    var na = __trans(abs(a));
+    var nb = __trans(abs(b));
 
     if (na.length < nb.length) {
-        return __multiply(nb, na).join('');
+        return ss + __multiply(nb, na).join('');
     } else {
-        return __multiply(na, nb).join('');
+        return ss + __multiply(na, nb).join('');
     }
 }
 
@@ -346,29 +352,42 @@ function __divide(na, nb) {
 
 function divide(a, b) {
     // 除法
-    var na = __trans(a);
-    var nb = __trans(b);
+    var sa = sign(a);
+    var sb = sign(b);
+    var s = sa * sb;
+    if (sa === 0) return '0';
+    if (sb === 0) return 'N/A';
+    var ss = s === 1 ? '' : '-';
+
+    var na = __trans(abs(a));
+    var nb = __trans(abs(b));
 
     switch (__cmp(na, nb)) {
         case -1:
             return '0';
         case 0:
-            return '1';
+            return ss + '1';
         default:
             // a > b，开始除法计算
-            return __divide(na, nb)[0].join('')
+            return ss + __divide(na, nb)[0].join('')
     }
 }
 
 function mod(a, b) {
     // 求余
 
+    var sa = sign(a);
+    var sb = sign(b);
+    if (sa === 0) return '0';
+    if (sb === 0) return 'N/A';
+    var ss = sa === 1 ? '' : '-';
+
     if (b == 1 || b == '1') {
         return '0';
     }
 
-    var na = __trans(a);
-    var nb = __trans(b);
+    var na = __trans(abs(a));
+    var nb = __trans(abs(b));
 
     switch (__cmp(na, nb)) {
         case -1:
@@ -376,7 +395,8 @@ function mod(a, b) {
         case 0:
             return '0';
         default:
-            return __divide(na, nb)[1].join('') || '0';
+            var m = __divide(na, nb)[1].join('');
+            return m ? (ss + m) : '0';
     }
 }
 
