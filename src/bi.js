@@ -67,6 +67,22 @@ function __cmp(na, nb) {
 }
 
 function cmp(a, b) {
+    var sa = sign(a);
+    var sb = sign(b);
+
+    if (sa > sb) {
+        return 1;
+    } else if (sa < sb) {
+        return -1;
+    }
+
+    var t;
+    if (sa == -1 && sb == -1) {
+        t = a;
+        a = abs(b);
+        b = abs(t);
+    }
+
     return a == b ? 0 : __cmp(__trans(a), __trans(b));
 }
 
@@ -162,7 +178,7 @@ function add(a, b) {
     return __add(na, nb).join('');
 }
 
-function __minus(na, nb) {
+function __subtract(na, nb) {
     na = na.slice(0).reverse();
     nb = nb.slice(0).reverse();
 
@@ -215,13 +231,13 @@ function subtract(a, b) {
 
     switch (__cmp(na, nb)) {
         case -1:
-            result = '-' + __minus(nb, na).join('');
+            result = '-' + __subtract(nb, na).join('');
             break;
         case 0:
             result = 0;
             break;
         case 1:
-            result = __minus(na, nb).join('');
+            result = __subtract(na, nb).join('');
             break;
     }
 
@@ -332,13 +348,13 @@ function __divide(na, nb) {
             tmp = __lmv(_multi(i), d_len);
             if (__cmp(left, tmp) == -1) {
                 result.push(i - 1);
-                left = __minus(left, __lmv(_multi(i - 1), d_len));
+                left = __subtract(left, __lmv(_multi(i - 1), d_len));
                 break;
             }
 
             if (i == 9) {
                 result.push(i);
-                left = __minus(left, __lmv(_multi(i), d_len));
+                left = __subtract(left, __lmv(_multi(i), d_len));
             }
         }
     }

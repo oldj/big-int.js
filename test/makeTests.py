@@ -41,7 +41,7 @@ def make_a_test():
 def main():
     js = """exports.tests = [\n\t%s\n];"""
     test_datas = []
-    for i in xrange(2000):
+    for i in range(2000):
         test_datas.append(make_a_test())
 
     js %= ',\n\t'.join(test_datas)
