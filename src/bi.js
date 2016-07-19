@@ -150,11 +150,11 @@ function add(a, b) {
     var sb = sign(b);
 
     if (sa == -1 && sb == -1) {
-        return '-' + add(abs(a) + abs(b));
+        return '-' + add(abs(a), abs(b));
     } else if (sa == -1) {
-        return minus(b, a);
+        return subtract(b, abs(a));
     } else if (sb == -1) {
-        return minus(a, b);
+        return subtract(a, abs(b));
     }
 
     var na = __trans(a);
@@ -195,18 +195,18 @@ function __minus(na, nb) {
     return result;
 }
 
-function minus(a, b) {
+function subtract(a, b) {
     // 减法
 
     var sa = sign(a);
     var sb = sign(b);
 
     if (sa == -1 && sb == -1) {
-        return altSign(abs(a) - abs(b));
+        return neg(subtract(abs(a), abs(b)));
     } else if (sa == -1) {
-        return '-' + add(abs(a) + b);
+        return '-' + add(abs(a),  b);
     } else if (sb == -1) {
-        return '-' + add(a + abs(b));
+        return add(a, abs(b));
     }
 
     var na = __trans(a);
@@ -416,7 +416,7 @@ function sign(a) {
     }
 }
 
-function altSign(a) {
+function neg(a) {
     var sa = sign(a);
     if (sa === 1) {
         return '-' + a;
@@ -436,11 +436,12 @@ module.exports = {
     lte: lte,
     eq: eq,
     add: add,
-    minus: minus,
-    multiply: multiply,
-    divide: divide,
+    sub: subtract,
+    mul: multiply,
+    div: divide,
     mod: mod,
     abs: abs,
-    sign: sign
+    sign: sign,
+    neg: neg
 };
 

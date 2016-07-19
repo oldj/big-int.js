@@ -372,9 +372,9 @@ module.exports = {
     lte: lte,
     eq: eq,
     add: add,
-    minus: minus,
-    multiply: multiply,
-    divide: divide,
+    sub: minus,
+    mul: multiply,
+    div: divide,
     mod: mod
 };
 

@@ -7,13 +7,14 @@
 
 import random
 
-OPERATIONS = ('add', 'minus', 'multiply', 'divide', 'mod')
+OPERATIONS = ('add', 'sub', 'mul', 'div', 'mod')
 
 
 def rnd_big_int():
     l = random.randint(50, 500)
     a = ['%d' % random.randint(0, 9) for _ in range(l)]
-    return long(''.join(a))
+    s = random.choice([-1, 1])
+    return s * int(''.join(a))
 
 
 def make_a_test():
@@ -23,14 +24,16 @@ def make_a_test():
 
     if operation == 'add':
         c = a + b
-    elif operation == 'minus':
+    elif operation == 'sub':
         c = a - b
-    elif operation == 'multiply':
+    elif operation == 'mul':
         c = a * b
-    elif operation == 'divide':
-        c = a // b
-    else:
-        c = a % b
+    elif operation == 'div':
+        s = 1 if a * b > 0 else -1
+        c = s * (abs(a) // abs(b))
+    else:  # mod
+        s = 1 if a > 0 else -1
+        c = s * (abs(a) % abs(b))
 
     return """['%s',\n\t\t'%d',\n\t\t'%d',\n\t\t'%d'\n\t]""" % (operation, a, b, c)
 
@@ -38,7 +41,7 @@ def make_a_test():
 def main():
     js = """exports.tests = [\n\t%s\n];"""
     test_datas = []
-    for i in xrange(1000):
+    for i in xrange(2000):
         test_datas.append(make_a_test())
 
     js %= ',\n\t'.join(test_datas)
