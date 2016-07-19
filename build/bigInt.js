@@ -73,6 +73,22 @@ function __cmp(na, nb) {
 }
 
 function cmp(a, b) {
+    var sa = sign(a);
+    var sb = sign(b);
+
+    if (sa > sb) {
+        return 1;
+    } else if (sa < sb) {
+        return -1;
+    }
+
+    var t;
+    if (sa == -1 && sb == -1) {
+        t = a;
+        a = abs(b);
+        b = abs(t);
+    }
+
     return a == b ? 0 : __cmp(__trans(a), __trans(b));
 }
 
@@ -152,12 +168,23 @@ function __add(na, nb) {
 }
 
 function add(a, b) {
+    var sa = sign(a);
+    var sb = sign(b);
+
+    if (sa == -1 && sb == -1) {
+        return '-' + add(abs(a), abs(b));
+    } else if (sa == -1) {
+        return subtract(b, abs(a));
+    } else if (sb == -1) {
+        return subtract(a, abs(b));
+    }
+
     var na = __trans(a);
     var nb = __trans(b);
     return __add(na, nb).join('');
 }
 
-function __minus(na, nb) {
+function __subtract(na, nb) {
     na = na.slice(0).reverse();
     nb = nb.slice(0).reverse();
 
@@ -190,21 +217,33 @@ function __minus(na, nb) {
     return result;
 }
 
-function minus(a, b) {
+function subtract(a, b) {
     // 减法
+
+    var sa = sign(a);
+    var sb = sign(b);
+
+    if (sa == -1 && sb == -1) {
+        return neg(subtract(abs(a), abs(b)));
+    } else if (sa == -1) {
+        return '-' + add(abs(a),  b);
+    } else if (sb == -1) {
+        return add(a, abs(b));
+    }
+
     var na = __trans(a);
     var nb = __trans(b);
     var result;
 
     switch (__cmp(na, nb)) {
         case -1:
-            result = '-' + __minus(nb, na).join('');
+            result = '-' + __subtract(nb, na).join('');
             break;
         case 0:
             result = 0;
             break;
         case 1:
-            result = __minus(na, nb).join('');
+            result = __subtract(na, nb).join('');
             break;
     }
 
@@ -278,13 +317,19 @@ function __multiply(na, nb) {
 
 function multiply(a, b) {
     // 乘法
-    var na = __trans(a);
-    var nb = __trans(b);
+    var sa = sign(a);
+    var sb = sign(b);
+    var s = sa * sb;
+    if (s === 0) return '0';
+    var ss = s === 1 ? '' : '-';
+
+    var na = __trans(abs(a));
+    var nb = __trans(abs(b));
 
     if (na.length < nb.length) {
-        return __multiply(nb, na).join('');
+        return ss + __multiply(nb, na).join('');
     } else {
-        return __multiply(na, nb).join('');
+        return ss + __multiply(na, nb).join('');
     }
 }
 
@@ -309,13 +354,13 @@ function __divide(na, nb) {
             tmp = __lmv(_multi(i), d_len);
             if (__cmp(left, tmp) == -1) {
                 result.push(i - 1);
-                left = __minus(left, __lmv(_multi(i - 1), d_len));
+                left = __subtract(left, __lmv(_multi(i - 1), d_len));
                 break;
             }
 
             if (i == 9) {
                 result.push(i);
-                left = __minus(left, __lmv(_multi(i), d_len));
+                left = __subtract(left, __lmv(_multi(i), d_len));
             }
         }
     }
@@ -329,29 +374,42 @@ function __divide(na, nb) {
 
 function divide(a, b) {
     // 除法
-    var na = __trans(a);
-    var nb = __trans(b);
+    var sa = sign(a);
+    var sb = sign(b);
+    var s = sa * sb;
+    if (sa === 0) return '0';
+    if (sb === 0) return 'N/A';
+    var ss = s === 1 ? '' : '-';
+
+    var na = __trans(abs(a));
+    var nb = __trans(abs(b));
 
     switch (__cmp(na, nb)) {
         case -1:
             return '0';
         case 0:
-            return '1';
+            return ss + '1';
         default:
             // a > b，开始除法计算
-            return __divide(na, nb)[0].join('')
+            return ss + __divide(na, nb)[0].join('')
     }
 }
 
 function mod(a, b) {
     // 求余
 
+    var sa = sign(a);
+    var sb = sign(b);
+    if (sa === 0) return '0';
+    if (sb === 0) return 'N/A';
+    var ss = sa === 1 ? '' : '-';
+
     if (b == 1 || b == '1') {
         return '0';
     }
 
-    var na = __trans(a);
-    var nb = __trans(b);
+    var na = __trans(abs(a));
+    var nb = __trans(abs(b));
 
     switch (__cmp(na, nb)) {
         case -1:
@@ -359,7 +417,35 @@ function mod(a, b) {
         case 0:
             return '0';
         default:
-            return __divide(na, nb)[1].join('') || '0';
+            var m = __divide(na, nb)[1].join('');
+            return m ? (ss + m) : '0';
+    }
+}
+
+function abs(a) {
+    // 求绝对值
+    return a.toString().replace(/^-/, '');
+}
+
+function sign(a) {
+    // 取得符号
+    if (!a || a == '0') {
+        return 0;
+    } else if (a.toString().indexOf('-') == 0) {
+        return -1;
+    } else {
+        return 1;
+    }
+}
+
+function neg(a) {
+    var sa = sign(a);
+    if (sa === 1) {
+        return '-' + a;
+    } else if (sa === -1) {
+        return abs(a);
+    } else {
+        return a;
     }
 }
 
@@ -372,11 +458,54 @@ module.exports = {
     lte: lte,
     eq: eq,
     add: add,
-    sub: minus,
+    sub: subtract,
     mul: multiply,
     div: divide,
-    mod: mod
+    mod: mod,
+    abs: abs,
+    sign: sign,
+    neg: neg
 };
 
 
-},{}]},{},[1])
+},{}],2:[function(require,module,exports){
+/**
+ * @author oldj
+ * @blog http://oldj.net
+ */
+
+'use strict';
+
+var bi = require('./bi');
+
+function BigInt(s) {
+    this.val = s;
+}
+
+var prop = {
+    bi: bi,
+    val: function () {
+        return this.val;
+    },
+};
+prop.toString = prop.valueOf = prop.val;
+var k;
+var m;
+for (k in bi) {
+    if (bi.hasOwnProperty(k) && typeof (m = bi[k]) == 'function') {
+        (function (_m) {
+            prop[k] = function (b) {
+                this.val = _m(this.val, b);
+                return this;
+            }
+        })(m)
+    }
+}
+
+BigInt.prototype = prop;
+
+module.exports = function (s) {
+    return new BigInt(s);
+};
+
+},{"./bi":1}]},{},[2])

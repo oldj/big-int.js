@@ -21,16 +21,18 @@ const header_info = `/**
 
 gulp.task('test', () => {
     gulp
-        .src('./src/**/*.test.js', {read: false})
+        .src([
+            './src/**/*.test.js'
+            // './src/**/bigInt.test.js'
+        ], {read: false})
         // gulp-mocha needs filepaths so you can't have any plugins before it
         .pipe(mocha({reporter: 'spec'}))
-        // .pipe(mocha({reporter: 'nyan'}))
     ;
 });
 
 gulp.task('js', () => {
     gulp
-        .src('./src/bi.js')
+        .src('./src/bigInt.js')
         .pipe(browserify({
             debug: false
         }))
