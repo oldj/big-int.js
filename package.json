@@ -1,6 +1,6 @@
 {
   "name": "big-int",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "Big Integer for JavaScript",
   "main": "src/bigInt.js",
   "directories": {
@@ -11,14 +11,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/oldj/js-BIO.git"
+    "url": "git+https://github.com/oldj/big-int.js.git"
   },
   "author": "oldj",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/oldj/js-BIO/issues"
+    "url": "https://github.com/oldj/big-int.js/issues"
   },
-  "homepage": "https://github.com/oldj/js-BIO#readme",
+  "homepage": "https://github.com/oldj/big-int.js#readme",
   "devDependencies": {
     "chai": "^3.5.0",
     "gulp": "^3.9.1",
