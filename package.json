@@ -1,6 +1,6 @@
 {
   "name": "big-int",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Big Integer for JavaScript",
   "main": "src/bigInt.js",
   "directories": {
