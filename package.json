@@ -18,7 +18,7 @@
   "bugs": {
     "url": "https://github.com/oldj/big-int.js/issues"
   },
-  "homepage": "https://github.com/oldj/big-int.js#readme",
+  "homepage": "https://github.com/oldj/big-int.js",
   "devDependencies": {
     "chai": "^3.5.0",
     "gulp": "^3.9.1",
