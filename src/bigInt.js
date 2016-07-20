@@ -8,14 +8,15 @@
 var bi = require('./bi');
 
 function BigInt(s) {
-    this.val = s;
+    this._value = s;
 }
 
+BigInt.bi = bi;
+
 var prop = {
-    bi: bi,
     val: function () {
-        return this.val;
-    },
+        return this._value;
+    }
 };
 prop.toString = prop.valueOf = prop.val;
 var k;
@@ -24,7 +25,7 @@ for (k in bi) {
     if (bi.hasOwnProperty(k) && typeof (m = bi[k]) == 'function') {
         (function (_m) {
             prop[k] = function (b) {
-                this.val = _m(this.val, b);
+                this._value = _m(this._value, b);
                 return this;
             }
         })(m)

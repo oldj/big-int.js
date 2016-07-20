@@ -13,6 +13,7 @@ describe('chain test', () => {
 
     it('basic test', () => {
         assert.equal(bigInt('123').add('222').toString(), '345');
+        assert.equal(bigInt('123').add('222').val(), '345');
         assert.equal(bigInt('100')
             .add('200')
             .sub('30')

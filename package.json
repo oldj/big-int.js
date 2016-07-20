@@ -1,8 +1,8 @@
 {
-  "name": "js-big-int",
-  "version": "1.0.0",
+  "name": "big-int",
+  "version": "0.0.1",
   "description": "Big Integer for JavaScript",
-  "main": "bi.js",
+  "main": "src/bigInt.js",
   "directories": {
     "test": "test"
   },
@@ -14,7 +14,7 @@
     "url": "git+https://github.com/oldj/js-BIO.git"
   },
   "author": "oldj",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/oldj/js-BIO/issues"
   },
