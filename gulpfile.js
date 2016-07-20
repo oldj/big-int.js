@@ -14,9 +14,9 @@ const header = require('gulp-header');
 const rename = require('gulp-rename');
 
 const header_info = `/**
- * JavaScript BigInt (version: ${require('./src/bi').version})
- * @author oldj
- * @blog http://oldj.net
+ * JavaScript BigInt
+ * @author oldj | http://oldj.net
+ * @source https://github.com/oldj/big-int.js
  */\n`;
 
 gulp.task('test', () => {

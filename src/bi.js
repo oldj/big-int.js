@@ -6,8 +6,6 @@
 
 'use strict';
 
-var version = '0.2.0';
-
 /**
  * @param a {Array}
  * @param fn {Function}
@@ -444,7 +442,6 @@ function neg(a) {
 }
 
 module.exports = {
-    version: version,
     cmp: cmp,
     gt: gt,
     gte: gte,
