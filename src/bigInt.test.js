@@ -26,6 +26,13 @@ describe('chain test', () => {
             .mul('-10') // -900
             .div('3') // -300
             .toString(), '-300');
+
+        let c = bigInt('100')
+                .add('50') // 150
+                .sub('10') // 140
+                .mul('2') // 280
+                .div('11'); // 25
+        assert.equal(c.val(), 25);
     });
 
     it('cmp', () => {
