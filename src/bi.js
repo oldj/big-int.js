@@ -32,7 +32,7 @@ function __trans (bi) {
     throw err
   }
 
-  bi = bi.replace(/^0+/g, '').split('')
+  bi = bi.replace(/^0+(\d)/g, '$1').split('')
   each(bi, function (item, idx) {
     bi[idx] = parseInt(item)
   })
@@ -152,7 +152,7 @@ function __add (na, nb) {
   result = __carry(result).reverse()
 
   // 丢掉首位的 0
-  while (result[0] === 0) {
+  while (result.length > 1 && result[0] === 0) {
     result.shift()
   }
 

@@ -150,6 +150,34 @@ describe('basic test', () => {
     assert.equal(bi.sign(1000), 1)
     assert.equal(bi.sign(-1000), -1)
   })
+
+  it('zero', () => {
+    assert.equal(bi.cmp(0, 0), 0)
+    assert.equal(bi.cmp(0, 1), -1)
+    assert.equal(bi.cmp(10, 0), 1)
+    assert.equal(bi.cmp('10', '0'), 1)
+
+    assert.equal(bi.add(0, 0), '0')
+    assert.equal(bi.add(1, 0), '1')
+    assert.equal(bi.add(0, 2), '2')
+    assert.equal(bi.add('0', 3), '3')
+
+    assert.equal(bi.sub(0, 0), '0')
+    assert.equal(bi.sub(0, 1), '-1')
+    assert.equal(bi.sub(1, 0), '1')
+    assert.equal(bi.sub('1000', 0), '1000')
+
+    assert.equal(bi.mul('1000', 0), '0')
+    assert.equal(bi.mul(1000, '0'), '0')
+    assert.equal(bi.mul(0, '10'), '0')
+    assert.equal(bi.mul('0', '10'), '0')
+
+    assert.equal(bi.div('0', '10'), '0')
+    assert.equal(bi.div('10', '0'), 'N/A')
+
+    assert.equal(bi.mod('0', '10'), '0')
+    assert.equal(bi.mod('10', '0'), 'N/A')
+  })
 })
 
 describe('more test', () => {
