@@ -1,8 +1,8 @@
 {
   "name": "big-int",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Big Integer for JavaScript",
-  "main": "build/big-int.min.js",
+  "main": "src/big-int.js",
   "directories": {
     "test": "test"
   },

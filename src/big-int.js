@@ -35,6 +35,12 @@ for (k in bi) {
 
 BigInt.prototype = prop
 
-module.exports = function (s) {
+var creator = function (s) {
   return new BigInt(s)
+}
+
+module.exports = creator
+
+if (typeof window === 'object') {
+  window.bigInt = creator
 }
