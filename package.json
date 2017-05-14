@@ -1,13 +1,14 @@
 {
   "name": "big-int",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Big Integer for JavaScript",
-  "main": "src/bigInt.js",
+  "main": "build/big-int.min.js",
   "directories": {
     "test": "test"
   },
   "scripts": {
-    "test": "gulp test"
+    "test": "gulp test",
+    "build": "gulp js"
   },
   "repository": {
     "type": "git",
@@ -26,6 +27,7 @@
     "gulp-header": "^1.8.7",
     "gulp-mocha": "^2.2.0",
     "gulp-rename": "^1.2.2",
+    "gulp-sourcemaps": "^2.6.0",
     "gulp-uglify": "^1.5.4",
     "mocha": "^2.5.3"
   }
